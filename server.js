@@ -8,6 +8,9 @@ const mongoose = require("mongoose"); // require package
 const express = require('express');
 const app = express();
 
+// Import the Fruit model
+const Fruit = require("./models/fruit.js");
+
 
 mongoose.connect(process.env.MONGODB_URI);
 // log connection status to terminal on start
@@ -37,5 +40,3 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-// Import the Fruit model
-const Fruit = require("./models/fruit.js");
