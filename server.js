@@ -26,12 +26,16 @@ app.use(express.urlencoded({ extended: false }));
 // GET /
 app.get("/", async (req, res) => {
   res.render("index.ejs");
+  
 });
+
+
+
 
 
 // GET /fruits
 app.get("/fruits", async (req, res) => {
-  const allFruits = await Fruit.find();
+  const allFruits = await Fruit.find({});
   res.render("fruits/index.ejs", { fruits: allFruits });
 });
 
