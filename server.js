@@ -51,11 +51,14 @@ app.get("/fruits/new", (req, res) => {
 app.get("/fruits/:fruitId", async (req, res) => {
   const foundFruit = await Fruit.findById(req.params.fruitId);
   res.render('fruits/show.ejs', {fruit: foundFruit });
+  
 });
 
 
-app.delete("/fruits/:fruitId", (req, res) => {
-  res.send("This is the delete route");
+
+app.delete("/fruits/:fruitId", async (req, res) => {
+  await Fruit.findByIdAndDelete(req.params.fruitId);
+  res.redirect("/fruits");
 });
 
 
