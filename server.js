@@ -26,25 +26,17 @@ app.use(express.urlencoded({ extended: false }));
 // GET /
 app.get("/", async (req, res) => {
   res.render("index.ejs");
-  
 });
-
-
 
 
 
 // GET /fruits
+
 app.get("/fruits", async (req, res) => {
-  const allFruits = await Fruit.find({});
-  res.render("fruits/index.ejs", { fruits: allFruits });
+  const allFruits = await Fruit.find();
+  console.log(allFruits); // log the fruits!
+  res.render("fruits/index.ejs", {fruits: allFruits});
 });
-
-
-
-
-
-
-
 
 
 //GET fruits/new
@@ -53,19 +45,17 @@ app.get("/fruits/new", (req, res) => {
 });
 
 
+
+app.get("/fruits/:fruitId", async (req, res) => {
+  const foundFruit = await Fruit.findById(req.params.fruitId);
+  res.render(`This route renders the show page for fruit id: ${req.params.fruitId}!`)
+
+  res.render('frtuits/show.ejs', {fruit: foundFruit });
+});
+
+
+
 //POST /fruits
-// app.post('/fruits', async (req,res) => {
-//   if (req.body.isReadyToEat === 'on') {
-//     req.body.isReadyToEat = true;
-//   } else {
-//     req.body.isReadyToEat = false;
-//   }
-  
-
-//   await Fruit.create.apply(req.body);
-//   res.redirect('/fruits/new');
-// });
-
 app.post("/fruits", async (req, res) => {
   if (req.body.isReadyToEat === "on") {
     req.body.isReadyToEat = true;
@@ -75,6 +65,9 @@ app.post("/fruits", async (req, res) => {
   await Fruit.create(req.body);
   res.redirect("/fruits/new");
 });
+
+
+
 
 app.listen(3000, () => {
   console.log('Listening on port 3000');
