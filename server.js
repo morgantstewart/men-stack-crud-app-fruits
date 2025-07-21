@@ -56,10 +56,6 @@ app.get("/fruits/:fruitId", async (req, res) => {
 
 
 
-app.delete("/fruits/:fruitId", async (req, res) => {
-  await Fruit.findByIdAndDelete(req.params.fruitId);
-  res.redirect("/fruits");
-});
 
 
 
